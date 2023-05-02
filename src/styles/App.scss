@@ -1,0 +1,132 @@
+@import "./defaults.scss";
+
+
+.small-h2.blue {
+  background-color: blue;
+}
+
+h2.small-h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: lightcoral;
+}
+
+.element {
+  padding: steps(2) steps(4);
+  margin: steps(5);
+  background-color: lightblue;
+  border: 2px solid $color-primary;
+  font-size: clamp(28px, 4vw, 43px);
+}
+
+.fancy-button {
+  background-color: lightblue;
+  border: 2px solid $color-primary;
+  font-size: clamp(28px, 4vw, 43px);
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+
+  &:hover {
+    background-color: $color-secondary;
+    color: white;
+  }
+}
+
+
+.fancy-button:active {
+  background-color: rgb(39, 26, 51);
+  color: white;
+}
+
+.fancy-button:disabled {
+  background-color: rgb(39, 26, 51);
+  color: white;
+}
+
+
+
+@include for-at-least() {
+  .fancy-button {
+    background-color: black;
+    color: white;
+  }
+}
+
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: lightcoral;
+}
+
+h3 {
+  font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: steps(4)
+}
+
+li {
+  padding: steps(2);
+  border-bottom : 1px solid $color-primary;
+  margin-bottom: steps(1);
+}
+
+.container{ 
+  max-width: 1200px;
+  padding: 0 steps(4);
+  margin: 0 auto;
+}
+
+
+.form {
+  margin-bottom: steps(5);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  label {
+    display: block;
+    width: 100%;
+    text-decoration: underline;
+    margin-bottom: steps(2);
+  }
+
+  div{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding: steps(2);
+    border: 1px solid $color-primary;
+    border-radius: steps(1);
+  }
+  textarea { 
+    white-space: nowrap;
+  }
+}
+
