@@ -1,14 +1,9 @@
 import { useState } from "react";
 import "../styles/components/item.scss";
 import { Button } from "./Button";
-import { Todo } from "./TodoList";
+import { Todo } from "../types/Todo";
+import { TodoItemProps } from "../types/TodoItemProps";
 
-type TodoItemProps = {
-  todo: Todo;
-  onCheckboxChange: () => void;
-  onDelete: () => void;
-  onTodoSave: (newTitle: string) => void;
-};
 
 export const TodoItem = ({
   todo,

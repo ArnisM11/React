@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { Button } from "./Button";
 import { TodoItem } from "./TodoItem";
+import {Todo} from "../types/Todo";
+import { TodoItemProps } from "../types/TodoItemProps";
 
-export type Todo = {
-  title: string;
-  id: string;
-  isDone: boolean;
-  decription?: string;
-};
 
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);

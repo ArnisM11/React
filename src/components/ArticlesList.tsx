@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import axios from "axios";
+import "../styles/components/articles-list.scss";
+import {Link} from "react-router-dom";
+import {delay} from "../constants/delays";
+import {Article} from "../types/Article";
+import {ArticleFormProps} from "../types/ArticleFormProps";
+import {API_URL} from "../constants/URL";
+import { getRandomWords } from "../helpers/getRandomWords";
 
-// Pieprasījums uz serveri
-// piehglabajam datus iekš state
-// renderējam datus no state
 
-type Article = {
-  title: string;
-  id: string;
-  description: string;
-};
 
-type ArticleFormProps = {
-  article: Article;
-  onSubmit: (title: string, description: string) => void;
-};
-
-const delay = (ms: number) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, ms);
-  });
-};
-
-const API_URL = "http://localhost:3004/articles";
-
-export const TodoListFromServer = () => {
+export const ArticlesList = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +22,7 @@ export const TodoListFromServer = () => {
     const fetchData2 = async () => {
       try {
         setIsLoading(true);
-        await delay(1000);
+        await delay(500);
         const data = await fetch(API_URL, {
           method: "GET",
           headers: {
@@ -56,21 +42,14 @@ export const TodoListFromServer = () => {
     fetchData2();
   }, []);
 
-      // Izdzēst article
-      // Izveidot formu, no kuras var paņemt datus, lai pievienotu jauno article.
-      // Edit opciju.
-      // Axios  npm i axios
-      // Nostilojam
-      // Pievienojam loading
-
   const addArticle = async () => {
     const newArticle = {
-      title: `New article ${count}`,
-      description: `New article description ${count}`,
+      title: getRandomWords(3),
+      description: getRandomWords(15)
     };
     try {
       setIsLoading(true);
-      await delay(1000);
+      await delay(500);
   
       const { data } = await axios.post(API_URL, newArticle);
       console.log("data", data);
@@ -87,7 +66,7 @@ export const TodoListFromServer = () => {
   const deleteArticle = async (id: string) => {
     try {
       setIsLoading(true);
-      await delay(1000);
+      await delay(500);
 
       await axios.delete(`${API_URL}/${id}`);
 
@@ -107,7 +86,7 @@ export const TodoListFromServer = () => {
   const updateArticle = async (id: string, updatedArticle: Article) => {
     try {
       setIsLoading(true);
-      await delay(1000);
+      await delay(500);
       const { data } = await axios.put(`${API_URL}/${id}`, updatedArticle);
       setArticles(
         articles.map((article) => (article.id === id ? data : article))
@@ -152,7 +131,7 @@ export const TodoListFromServer = () => {
   }
 
   return (
-    <div>
+    <div className ="article-list">
       <Button onButtonClick={addArticle}>Add new Article</Button>
       {articles.length > 0 ? (
         articles.map((article) => {
@@ -170,21 +149,22 @@ export const TodoListFromServer = () => {
           } else {
             return (
               <div key={article.id}>
-                <h3>{article.title}</h3>
-                <p>{/*article.description}*/}</p>
-                <Button onButtonClick={() => editArticleForm(article)}>
-                  Edit
-                </Button>
-                <Button onButtonClick={() => deleteArticle(article.id)}>
-                  Delete
-                </Button>
+              <h2>{article.title}</h2>
+              <Button onButtonClick={() => editArticleForm(article)}>
+                Edit
+              </Button>
+              <Button onButtonClick={() => deleteArticle(article.id)}>
+                Delete
+              </Button>
+              <Link to= {`/articles/${article.id}`}>
+                <Button>Go to article</Button>
+              </Link>
               </div>
             );
           }
         })
-      ) : (
-        <div>No articles found.</div>
-      )}
+      ) : null
+      }
     </div>
   );
 };
